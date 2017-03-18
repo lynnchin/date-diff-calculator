@@ -1,4 +1,7 @@
 package com.calculator.datediff;
 
-public class DateParser {
+import java.util.Optional;
+
+public interface DateParser {
+    public Optional<CustomDate> parse(String inputDate);
 }

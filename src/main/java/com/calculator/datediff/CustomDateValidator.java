@@ -1,5 +1,7 @@
 package com.calculator.datediff;
 
+import java.util.Optional;
+
 /**
  * Created by lynnchin on 18/3/17.
  */
@@ -13,7 +15,13 @@ public class CustomDateValidator implements DateValidator {
 
     // TODO: Refactor this later...
     @Override
-    public boolean validDaysInMonth(CustomDate customDate) {
+    public boolean validDaysInMonth(Optional<CustomDate> customDateOptional) {
+        if(!customDateOptional.isPresent()){
+            return false;
+        }
+
+        CustomDate customDate = customDateOptional.get();
+
         if (customDate.getMonth() == 2) {
             return validateDaysInLeapYear(customDate.getDay(),customDate.getYear());
         }
@@ -21,6 +29,7 @@ public class CustomDateValidator implements DateValidator {
                 validateDaysInMonthWithThirtyOneDays(customDate.getDay(), customDate.getMonth());
     }
 
+    // TODO: DRY this up!
     private boolean validateDaysInLeapYear(int day, int year){
         if (CustomDateHelper.isLeapYear(year)) {
             if (day <= DAYS_FEBUARY_LEAP_YEAR) {
@@ -37,6 +46,7 @@ public class CustomDateValidator implements DateValidator {
         }
     }
 
+    // TODO: DRY THIS up!
     private boolean validateDaysInMonthWithThirtyDays(int day, int month) {
         for (int currentMonth : monthsWithThirthyDays) {
             if (currentMonth == month) {
@@ -49,6 +59,7 @@ public class CustomDateValidator implements DateValidator {
         return false;
     }
 
+    // TODO: DRY this up!
     private boolean validateDaysInMonthWithThirtyOneDays(int day, int month) {
         for (int currentMonth : monthsWithThirthyOneDays) {
             if (currentMonth == month) {

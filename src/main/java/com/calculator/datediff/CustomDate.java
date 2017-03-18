@@ -11,6 +11,12 @@ public class CustomDate implements Comparable<CustomDate>{
     this.year = year;
   }
 
+  public CustomDate() {
+    this.day = 1;
+    this.day = 1;
+    this.year = 1900;
+  }
+
   public int getDay() {
     return day;
   }

@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Optional;
 
 /**
  * Created by lynnchin on 18/3/17.
@@ -12,51 +12,57 @@ import static org.junit.Assert.*;
 public class CustomDateValidatorTest {
 
     private DateValidator validator = null;
-    private CustomDate customDate = null;
+    private Optional<CustomDate> customDateOptional = Optional.empty();
     @Before
     public void setUp(){
         validator = new CustomDateValidator();
-        customDate = new CustomDate(1,1,2011);
+        customDateOptional = getOptionalCustomDate(1,1,2011);
     }
 
     @Test
     public void returnsTrueIfValidateDaysInMonthIsValid(){
-        boolean result = validator.validDaysInMonth(customDate);
+        boolean result = validator.validDaysInMonth(customDateOptional);
         Assert.assertEquals(true, result);
     }
 
     @Test
     public void returnsFalseIfValidateDaysInMonthIsValid(){
-        customDate = new CustomDate(0,1,2011);
-        boolean result = validator.validDaysInMonth(customDate);
+        customDateOptional = getOptionalCustomDate(0,1,2011);
+        boolean result = validator.validDaysInMonth(customDateOptional);
         Assert.assertEquals(false, result);
     }
 
     @Test
     public void returnsFalseIfValidateDaysInMonthIsLeapYearAndGreaterThan28Days(){
-        customDate = new CustomDate(29,2,2016);
-        boolean result = validator.validDaysInMonth(customDate);
+        customDateOptional = getOptionalCustomDate(29,2,2016);
+        boolean result = validator.validDaysInMonth(customDateOptional);
         Assert.assertEquals(false, result);
     }
 
     @Test
     public void returnsTrueIfValidateDaysInMonthIsLeapYearAndDayIs28Days(){
-        customDate = new CustomDate(28,2,2016);
-        boolean result = validator.validDaysInMonth(customDate);
+        customDateOptional = getOptionalCustomDate(28,2,2016);
+        boolean result = validator.validDaysInMonth(customDateOptional);
         Assert.assertEquals(true, result);
     }
 
     @Test
     public void returnsFalseIfValidateDaysInMonthAndIsLessThan30Days(){
-        customDate = new CustomDate(31,4,2017);
-        boolean result = validator.validDaysInMonth(customDate);
+        customDateOptional = getOptionalCustomDate(31,4,2011);
+        boolean result = validator.validDaysInMonth(customDateOptional);
         Assert.assertEquals(false, result);
     }
 
     @Test
     public void returnsTrueIfValidateDaysInMonthAndIsGreaterThan30Days(){
-        customDate = new CustomDate(31,8,2017);
-        boolean result = validator.validDaysInMonth(customDate);
+        customDateOptional = getOptionalCustomDate(31,8,2011);
+        boolean result = validator.validDaysInMonth(customDateOptional);
         Assert.assertEquals(true, result);
+    }
+
+    private Optional<CustomDate> getOptionalCustomDate(int day, int month, int year) {
+        CustomDate customDate = new CustomDate(day, month, year);
+        customDateOptional = Optional.of(customDate);
+        return Optional.of(customDate);
     }
 }
