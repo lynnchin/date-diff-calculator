@@ -36,6 +36,27 @@ public class CustomDate implements Comparable<CustomDate>{
   }
 
   @Override public int compareTo(CustomDate o) {
-    return this.getMonth();
-  }
+    if(this == null || o == null){
+      throw new DateDiffException("Compare Date is null");
+    }
+
+    if(this.getYear() == o.getYear()){
+      if(this.getMonth() == o.getMonth()){
+        if(this.getDay() < o.getDay()){
+          return -1;
+        }else if(this.getDay() == o.getDay()){
+          return 0;
+        }else{
+          return 1;
+        }
+      }else if(this.getMonth() > o.getMonth()){
+        return 1;
+      }else {
+        return -1;
+      }
+    }else if(this.getYear() > o.getYear()){
+      return 1;
+    }
+    return -1;
+ }
 }

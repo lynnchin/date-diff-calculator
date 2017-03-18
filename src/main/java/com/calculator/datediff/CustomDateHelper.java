@@ -1,14 +1,13 @@
 package com.calculator.datediff;
 
-public class DateHelper {
+public class CustomDateHelper {
 
   // Compare Date and return which one is bigger
-  public int compareDate(CustomDate customDate1, CustomDate customDate2) {
-    return -1;
+  public static int compareDate(CustomDate firstDate, CustomDate secondDate) {
+    return firstDate.compareTo(secondDate);
   }
 
   // Checks for leap year
-
   public static boolean isLeapYear(int year){
     if (year % 4 != 0) {
       return false;
@@ -20,15 +19,5 @@ public class DateHelper {
       return true;
     }
   }
-
-  //TODO:
-  /*
-    Returns true if the the input day and month is valid. Otherwise, returns false
-   */
-  public static boolean isValidDaysInMonth(int day, int month, int year){
-
-    return false;
-  }
-
 }
 
